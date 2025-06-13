@@ -75,7 +75,7 @@
       Formulario
     </h1>
 
-    <form th:action="@{/tareas/save}" th:object="${tarea}" method="post">
+    <form th:action="@{/tareas/guardar}" th:object="${tarea}" method="post">
       <input type="hidden" th:field="*{id}" />
 
       <label for="titulo">Título</label>
