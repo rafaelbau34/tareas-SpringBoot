@@ -35,6 +35,34 @@ public class TareaController {
         return "redirect:/tareas";
     }
 
+    @PostMapping("/{id}/toggle-status")
+    public String toggleStatus(@PathVariable Long id) {
+       
+        Tarea tarea = service.findById(id);
+        if (tarea == null) {
+            throw new IllegalArgumentException("Invalid tarea ID");
+        }
+
+        switch (tarea.getEstado()) {
+            case "Pendiente":
+              tarea.setEstado("En progreso");
+            break;
+            case "En progreso":
+            tarea.setEstado("Terminado");
+             break;
+            case "Terminado":
+              tarea.setEstado("Pendiente");
+                break;
+            default:
+                tarea.setEstado("Pendiente");
+        }
+
+        service.save(tarea);
+            return "redirect:/tareas";
+    }
+
+
+
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
         service.delete(id);

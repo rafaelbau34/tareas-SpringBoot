@@ -30,7 +30,7 @@
       }
 
       th {
-        background-color: #007bff;
+        background-color: #8400ff;
         color: white;
       }
 
@@ -41,12 +41,12 @@
       .actions {
         display: flex;
         justify-content: center;
-        gap: 10px;
+        gap: 15px;
       }
 
       button {
         padding: 6px 12px;
-        background-color: #007bff;
+        background-color: #8400ff;
         color: white;
         border: none;
         border-radius: 4px;
@@ -54,7 +54,7 @@
       }
 
       button:hover {
-        background-color: #0056b3;
+        background-color: #750ea1;
       }
 
       a {
@@ -74,27 +74,38 @@
   <body>
     <h1>Lista de Tareas</h1>
     <table>
-      <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Descripción</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-      <tr th:each="tarea : ${tareas}">
-        <td th:text="${tarea.id}">1</td>
-        <td th:text="${tarea.titulo}">Título</td>
-        <td th:text="${tarea.descripcion}">Descripción</td>
-        <td th:text="${tarea.estado}">Estado</td>
-        <td class="actions">
-          <form th:action="@{'/tareas/form?id=' + ${tarea.id}}" method="get">
-            <button type="submit">Editar</button>
-          </form>
-          <form th:action="@{'/tareas/delete/' + ${tarea.id}}" method="get">
-            <button type="submit">Eliminar</button>
-          </form>
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="tarea : ${tareas}">
+          <td th:text="${tarea.titulo}">Título</td>
+          <td th:text="${tarea.descripcion}">Descripción</td>
+          <td th:text="${tarea.estado}">Estado</td>
+          <td>
+            <form
+              th:action="@{|/tareas/${tarea.id}/toggle-status|}"
+              method="post"
+              style="display: inline"
+            >
+              <button type="submit">Cambiar Estado</button>
+            </form>
+
+            <form
+              th:action="@{'/tareas/eliminar/' + ${tarea.id}}"
+              method="get"
+              style="display: inline"
+            >
+              <button type="submit">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
     </table>
     <a th:href="@{/tareas/form}">➕ Añadir Nueva Tarea</a>
   </body>

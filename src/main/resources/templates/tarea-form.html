@@ -23,6 +23,7 @@
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
       }
 
       label {
@@ -64,7 +65,7 @@
       }
 
       a:hover {
-        color: #0056b3;
+        color: #8a0eb4;
       }
     </style>
   </head>
@@ -91,9 +92,9 @@
 
       <label for="estado">Estado</label>
       <select id="estado" th:field="*{estado}" required>
-        <option value="PENDING">Pendiente</option>
-        <option value="IN_PROGRESS">En Progreso</option>
-        <option value="FINISHED">Finalizado</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="En progreso">En Progreso</option>
+        <option value="Finalizado">Finalizado</option>
       </select>
 
       <button type="submit">Guardar</button>
