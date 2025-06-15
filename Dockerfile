@@ -1,9 +1,20 @@
 FROM eclipse-temurin:17-jdk-jammy
 
+WORKDIR /app
+
+# 1. Copy build files
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+RUN chmod +x mvnw
+
+# 2. Download dependencies
+RUN ./mvnw dependency:go-offline
+
+# 3. Copy source code
 COPY src ./src
 
-RUN chmod +x mvnw && ./mvnw clean package -DskipTests
+# 4. Build (skip tests)
+RUN ./mvnw clean package -DskipTests
 
-ENTRYPOINT ["java", "-jar", "target/tareas-SpringBoot-0.0.1-SNAPSHOT.jar"]
+# 5. Run (using correct JAR name)
+ENTRYPOINT ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
